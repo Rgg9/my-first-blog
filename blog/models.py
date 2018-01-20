@@ -10,7 +10,14 @@ class Post(models.Model): #sloupce u příspěvku...
     title = models.CharField(max_length=200)
     text = models.TextField()
     created_date = models.DateTimeField(
-        default=timezone.now)
+        default=timezone.now) #tady se timezone.now nevolá....
     published_date = models.DateTimeField(
         blank=True,
         null=True)
+
+    def publish(self):
+        self.published_date = timezone.now() #"musíme to zavolat"
+        self.save()
+
+    def __str__(self):
+        return self.title
